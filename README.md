@@ -25,7 +25,7 @@ def get_f(id):
     return leak.f
 ```
 
-See the [tests](leak/core/tests.py) for working code.
+See the [tests](possible-leak/core/tests.py) for working code.
 
 ```bash
 git clone git@github.com/massover/leak.git
