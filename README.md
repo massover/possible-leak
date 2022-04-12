@@ -43,7 +43,7 @@ memory_start=641.67578125, memory_end=681.9609375,  memory_diff=40.28515625
 
 Solutions?
 
-- I'm no [weakref.proxy](https://docs.python.org/3/library/weakref.html#weakref.proxy) expert, but this is what it's for? I did run this code against the django test suite and it passed. No idea about compatibility.
+- I'm no [weakref.proxy](https://docs.python.org/3/library/weakref.html#weakref.proxy) expert, but this is what it's for? I ran this code against the django test suite and it passed. No idea about compatibility.
 
 ```python
 class FieldFile(File):
