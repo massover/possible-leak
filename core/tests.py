@@ -1,12 +1,14 @@
+import io
 import os
 import json
+import unittest
 
 import psutil
 from django.core.files.base import ContentFile
 from django.db.models.fields.files import FieldFile
 from django.test import TestCase
 
-from core.models import Leak
+from core.models import Leak, get_f
 
 
 class TestLeak(TestCase):
@@ -25,6 +27,12 @@ class TestLeak(TestCase):
         memory_diff = memory_end - memory_start
         print(f"{memory_start=}, {memory_end=},  {memory_diff=}")
         assert new.f.read() == leak.f.read()
+
+    def test_get_f(self):
+        leak = Leak.objects.create(f=ContentFile("example".encode(), "leak"), f_json="example")
+        f = get_f(leak.id)
+        new = io.StringIO("some initial text data")
+        f.save("new-name", new)
 
 
 
@@ -61,3 +69,8 @@ class TestPatch(TestCase):
         print(f"{memory_start=}, {memory_end=},  {memory_diff=}")
         assert new.f.read() == leak.f.read()
 
+    def test_get_f(self):
+        leak = Leak.objects.create(f=ContentFile("example".encode(), "leak"), f_json="example")
+        f = get_f(leak.id)
+        new = io.StringIO("some initial text data")
+        f.save("new-name", new)
