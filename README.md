@@ -31,7 +31,17 @@ See the [tests](https://github.com/massover/possible-leak/blob/main/core/tests.p
 git clone git@github.com/massover/leak.git
 cd leak
 pip install -r requirements.txt
+./manage.py leak
 ./manage.py test
+```
+
+```bash
+1kb, memory_start=144.12109375MB, memory_end=144.8359375MB,  memory_diff=0.71484375MB
+10kb, memory_start=144.83984375MB, memory_end=145.79296875MB,  memory_diff=0.953125MB
+100kb, memory_start=145.89453125MB, memory_end=150.484375MB,  memory_diff=4.58984375MB
+1mb, memory_start=148.53125MB, memory_end=203.13671875MB,  memory_diff=54.60546875MB
+10mb, memory_start=183.9921875MB, memory_end=724.546875MB,  memory_diff=540.5546875MB
+100mb, memory_start=534.40234375MB, memory_end=4619.51171875MB,  memory_diff=4085.109375MB
 ```
 
 ```bash
