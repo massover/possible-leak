@@ -1,11 +1,11 @@
-# Possible FileField (FieldFile) memory leak?
+# Possible FileField (FieldFile) memory optimization?
 
 [Existing ticket](https://code.djangoproject.com/ticket/16022)
 
 Observations:
 
-- I think that accessing a FileField descriptor for a model instance causes a memory leak.
-- A leak is most noticable if the instance happens to contain a field with a large amount of data on it (a large text field, json field, etc)
+- I think that accessing a FileField descriptor for a model instance ~causes a memory leak~ can use a memory optimization.
+- A memory difference (from garbage) is most noticable if the instance happens to contain a field with a large amount of data on it (a large text field, json field, etc)
 - I believe it's a reference cycle between a model instance.file_field and FileField.instance
 - I believe that the reference cycles are subject to whenever the gc wants to collect. In the tests below, that means `memory_end` depends on the gc timing.
 
