@@ -27,6 +27,8 @@ def get_f(id):
 
 See the [management command](https://github.com/massover/possible-leak/blob/main/core/management/commands/leak.py) for working code.
 
+## Steps to repro
+
 ```bash
 git clone git@github.com/massover/leak.git
 cd leak
