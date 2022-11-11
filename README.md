@@ -25,30 +25,55 @@ def get_f(id):
     return leak.f
 ```
 
-See the [tests](https://github.com/massover/possible-leak/blob/main/core/tests.py) for working code.
+See the [management command](https://github.com/massover/possible-leak/blob/main/core/management/commands/leak.py) for working code.
 
 ```bash
 git clone git@github.com/massover/leak.git
 cd leak
 pip install -r requirements.txt
+./manage.py migrate
 ./manage.py leak
-./manage.py test
+./manage.py leak --patch
+pip uninstall django
+pip install git+https://github.com/massover/django.git@issues/16022
+
+# to run it again against a live version and see the leak
+pip uninstall django
+pip install django
+./manage.py leak
 ```
 
 ```bash
-1kb, memory_start=144.12109375MB, memory_end=144.8359375MB,  memory_diff=0.71484375MB
-10kb, memory_start=144.83984375MB, memory_end=145.79296875MB,  memory_diff=0.953125MB
-100kb, memory_start=145.89453125MB, memory_end=150.484375MB,  memory_diff=4.58984375MB
-1mb, memory_start=148.53125MB, memory_end=203.13671875MB,  memory_diff=54.60546875MB
-10mb, memory_start=183.9921875MB, memory_end=724.546875MB,  memory_diff=540.5546875MB
-100mb, memory_start=534.40234375MB, memory_end=4619.51171875MB,  memory_diff=4085.109375MB
+# unpatched
+# ./manage.py leak
+1kb, memory_start=150.703125MB, memory_end=150.953125MB,  memory_diff=0.25MB
+10kb, memory_start=151.09375MB, memory_end=151.96875MB,  memory_diff=0.875MB
+100kb, memory_start=152.71875MB, memory_end=160.46875MB,  memory_diff=7.75MB
+1mb, memory_start=172.09375MB, memory_end=249.921875MB,  memory_diff=77.828125MB
+10mb, memory_start=387.453125MB, memory_end=818.171875MB,  memory_diff=430.71875MB
+100mb, memory_start=2121.34375MB, memory_end=5338.34375MB,  memory_diff=3217.0MB
 ```
 
 ```bash
-test no patch
-memory_start=71.26171875, memory_end=631.640625,  memory_diff=560.37890625
-.test with patch
-memory_start=641.67578125, memory_end=681.9609375,  memory_diff=40.28515625
+# patched
+# ./manage.py leak --patch
+1kb, memory_start=148.90625MB, memory_end=149.0625MB,  memory_diff=0.15625MB
+10kb, memory_start=149.203125MB, memory_end=149.265625MB,  memory_diff=0.0625MB
+100kb, memory_start=150.84375MB, memory_end=151.875MB,  memory_diff=1.03125MB
+1mb, memory_start=166.234375MB, memory_end=181.765625MB,  memory_diff=15.53125MB
+10mb, memory_start=319.25MB, memory_end=319.359375MB,  memory_diff=0.109375MB
+100mb, memory_start=1623.28125MB, memory_end=1623.4375MB,  memory_diff=0.15625MB
+```
+
+```bash
+# unpatched @ issues/16022
+# ./manage.py leak
+1kb, memory_start=149.21875MB, memory_end=149.359375MB,  memory_diff=0.140625MB
+10kb, memory_start=149.5MB, memory_end=149.640625MB,  memory_diff=0.140625MB
+100kb, memory_start=151.234375MB, memory_end=151.90625MB,  memory_diff=0.671875MB
+1mb, memory_start=166.234375MB, memory_end=182.859375MB,  memory_diff=16.625MB
+10mb, memory_start=320.421875MB, memory_end=320.5MB,  memory_diff=0.078125MB
+100mb, memory_start=1624.140625MB, memory_end=1624.203125MB,  memory_diff=0.0625MB
 ```
 
 Solutions?
